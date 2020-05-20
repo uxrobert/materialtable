@@ -6,7 +6,7 @@ import TheTable from './Components/Table'
 function App() {
   return (
     <div className="App">
-     <Form/>
+     <Form data/>
      <TheTable/>
     </div>
   );

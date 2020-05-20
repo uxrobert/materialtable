@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+const axios = require('axios');
+
+
 
 
 function Copyright() {
@@ -63,7 +66,25 @@ const allValues = (e) => {
   console.log(state);
   localStorage.setItem('ValueInLocalStorage', JSON.stringify(state));
   let getValueInLocalStorage = localStorage.getItem(JSON.parse('ValueInLocalStorage'));
-  console.log(getValueInLocalStorage);
+  const userdata = [];
+  userdata.push(getValueInLocalStorage);
+  console.log(userdata);
+
+  axios.post('/http://localhost:5000/user', state)
+  .then(function (response) {
+    // handle success
+    console.log(response);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  });
+
+
+
 
 
 
