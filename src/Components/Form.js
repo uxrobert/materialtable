@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-const axios = require('axios');
+import axios from 'axios';
 
 
 
@@ -63,14 +63,8 @@ const getInputs = (e) => {
 
 const allValues = (e) => {
   e.preventDefault();
-  console.log(state);
-  localStorage.setItem('ValueInLocalStorage', JSON.stringify(state));
-  let getValueInLocalStorage = localStorage.getItem(JSON.parse('ValueInLocalStorage'));
-  const userdata = [];
-  userdata.push(getValueInLocalStorage);
-  console.log(userdata);
 
-  axios.post('/http://localhost:5000/user', state)
+  axios.post('http://localhost:5000/user', state)
   .then(function (response) {
     // handle success
     console.log(response);
@@ -82,6 +76,17 @@ const allValues = (e) => {
   .finally(function () {
     // always executed
   });
+  
+  // console.log(state);
+  // localStorage.setItem('ValueInLocalStorage', JSON.stringify(state));
+  // let getValueInLocalStorage = localStorage.getItem(JSON.parse('ValueInLocalStorage'));
+  // const userdata = [];
+  // userdata.push(getValueInLocalStorage);
+  // console.log(userdata);
+
+  // http://localhost:5000/user
+
+  
 
 
 

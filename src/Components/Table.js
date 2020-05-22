@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Form from './Form'
+const axios = require('axios');
 
 const useStyles = makeStyles({
   table: {
@@ -30,31 +31,64 @@ const rows = [
 export default function TheTable(props) {
   const classes = useStyles();
 
+const [state, setstate] = useState([null]);
+
+
+ const getData = (e) =>{
+
+   
+  // Make a request for a user with a given ID
+  axios.get('http://localhost:5000/users')
+    .then( (response) =>{
+      // handle success con
+     
+       setstate({data:response.data.data})
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .finally(function () {
+      // always executed
+    });
+   
+    
+
+
+ }
+
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
+
+    {console.log(state.data)}
+     <button onClick={getData}>Get Data</button>
+    {state.data===undefined?<div>loading ...</div>:  <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell>First Name</TableCell>
             <TableCell align="right">Last Name</TableCell>
             <TableCell align="right">Favorite Dish&nbsp;</TableCell>
             <TableCell align="right">Favorite Game&nbsp;</TableCell>
+          
             
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
+          {
+          state.data.map((row, index) => (
+            <TableRow key={index}>
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{props.data}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="right">{row.firstname}</TableCell>
+              <TableCell align="right">{row.lastname}</TableCell>
+              <TableCell align="right">{row.favoritedish}</TableCell>
+              <TableCell align="right">{row.favoritegame}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+    }
     </TableContainer>
   );
 }
